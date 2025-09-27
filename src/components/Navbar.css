@@ -1,59 +1,70 @@
-/* Fondo con gradiente y sombra elegante */
 .custom-navbar {
-  background: linear-gradient(135deg, #fa317a, #df236b);
+  background: linear-gradient(
+    135deg,
+    #ff85b3,
+    #ff85b3,
+    #051a4c,
+    #0d2d6c,
+    #ff85b3
+  );
+  
+  background-size: 400% 400%; /* mismo tamaño que hero */
+  animation: ultraWave 30s ease infinite; /* sincronizado con hero */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   padding: 0.8rem 1.5rem;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(7px); /* sutil blur, no oculta demasiado */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-/* Logo / brand */
+/* Logo / links */
+.custom-navbar .navbar-brand { font-weight: 700; font-size: 1.4rem; color: #fff; }
+.custom-navbar .nav-link { color: #fff; margin-left: 1rem; font-weight: 500; position: relative; }
+.custom-navbar .nav-link:hover { color: #ffe6ef; transform: translateY(-2px); }
+.custom-navbar .nav-link::after { content: ""; display: block; width: 0; height: 2px; background: #ffe6ef; transition: width 0.3s; position: absolute; bottom: -4px; left: 0; border-radius: 2px; }
+.custom-navbar .nav-link:hover::after { width: 100%; }
+
+/* Toggle */
+.navbar-toggler { border: none !important; outline: none !important; }
+.navbar-toggler-icon { filter: invert(1); }
+.custom-navbar::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: inherit; /* copia gradiente animado del navbar */
+  z-index: -1; /* detrás de contenido */
+  filter: blur(6px);
+}
+
+/* Link activo (solo texto rosado) */
+.custom-navbar .nav-link.active {
+  color: #ff85b3 !important;
+  font-weight: 700; /* opcional: lo hace más destacado */
+}
+
+/* Barrita decorativa también rosada para el activo */
+.custom-navbar .nav-link.active::after {
+  width: 100%;
+  background: #ff85b3;
+}
+
+/* Logo normal */
 .custom-navbar .navbar-brand {
   font-weight: 700;
   font-size: 1.4rem;
-  letter-spacing: 0.8px;
-  color: #fff !important;
-  transition: color 0.3s ease;
-}
-
-/* Links */
-.custom-navbar .nav-link {
-  color: #fff !important;
-  margin-left: 1rem;
-  position: relative;
-  font-weight: 500;
-  font-size: 1rem;
+  color: #fff;
   transition: color 0.3s ease, transform 0.2s ease;
-  padding: 0.3rem 0.6rem;
 }
 
-/* Subrayado animado */
-.custom-navbar .nav-link::after {
-  content: "";
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #ffe6ef;
-  transition: width 0.3s;
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  border-radius: 2px;
+/* Logo al pasar el mouse */
+.custom-navbar .navbar-brand:hover {
+  color: #ff85b3;   /* rosado */
+  transform: translateY(-2px); /* opcional: efecto sutil */
 }
 
-.custom-navbar .nav-link:hover {
-  color: #ffe6ef !important;
-  transform: translateY(-2px);
-}
-
-.custom-navbar .nav-link:hover::after {
-  width: 100%;
-}
-
-/* Menú móvil */
-.navbar-toggler {
-  border: none !important;
-  outline: none !important;
-}
-.navbar-toggler-icon {
-  filter: invert(1); /* Hace el ícono hamburguesa blanco */
+/* Logo activo (cuando estás en esa ruta) */
+.custom-navbar .navbar-brand.active {
+  color: #ffffff !important; /* se queda blanco */
 }
