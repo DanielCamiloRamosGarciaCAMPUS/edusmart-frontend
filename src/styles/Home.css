@@ -1,0 +1,64 @@
+/* Reset de botones bootstrap */
+.btn-reset {
+  all: unset;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Hero con gradiente */
+.hero-section {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #051a4c 0%, #0d2d6c 50%, #fa317a 100%);
+  padding: 2rem;
+}
+
+/* Texto con degradado */
+.text-gradient {
+  background: linear-gradient(90deg, #fa317a, #ff6aa3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Botón moderno */
+.custom-btn {
+  background: linear-gradient(135deg, #fa317a, #df236b);
+  border: none !important;
+  color: white !important;
+  padding: 0.9rem 2.5rem !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  box-shadow: 0px 5px 15px rgba(250, 49, 122, 0.3) !important;
+}
+
+.custom-btn:hover {
+  background: linear-gradient(90deg, #ff4f92, #ff85b3) !important;
+  transform: translateY(-3px) scale(1.05) !important;
+  box-shadow: 0px 8px 25px rgba(250, 49, 122, 0.5) !important;
+}
+
+/* Iconos grandes */
+.feature-icon {
+  font-size: 3rem;
+}
+
+/* Tarjetas modernas */
+.custom-card {
+  border: none;
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.custom-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Sección cómo funciona */
+.how-it-works {
+  background: #f9f9f9;
+}

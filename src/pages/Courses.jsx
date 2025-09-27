@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import "../styles/Courses.css";
+
 
 //Estos son daots simulados, necesitamos ponerle BACKEND :p
 //EL QUE LO LEA ES GAY
@@ -53,7 +55,7 @@ function Courses() {
   });
 
   return (
-    <Container className="py-5">
+    <Container className="py-5 courses-container">
       <h1 className="fw-bold text-center mb-4">Nuestros Cursos</h1>
 
       {/* Filtros */}

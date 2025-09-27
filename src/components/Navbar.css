@@ -1,0 +1,59 @@
+/* Fondo con gradiente y sombra elegante */
+.custom-navbar {
+  background: linear-gradient(135deg, #fa317a, #df236b);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.8rem 1.5rem;
+}
+
+/* Logo / brand */
+.custom-navbar .navbar-brand {
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.8px;
+  color: #fff !important;
+  transition: color 0.3s ease;
+}
+
+/* Links */
+.custom-navbar .nav-link {
+  color: #fff !important;
+  margin-left: 1rem;
+  position: relative;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 0.3rem 0.6rem;
+}
+
+/* Subrayado animado */
+.custom-navbar .nav-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ffe6ef;
+  transition: width 0.3s;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  border-radius: 2px;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #ffe6ef !important;
+  transform: translateY(-2px);
+}
+
+.custom-navbar .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Menú móvil */
+.navbar-toggler {
+  border: none !important;
+  outline: none !important;
+}
+.navbar-toggler-icon {
+  filter: invert(1); /* Hace el ícono hamburguesa blanco */
+}

@@ -1,23 +1,24 @@
 import React from "react";
 import { Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "../styles/Home.css";
 
 function Home() {
   return (
     <>
       {/* Hero */}
-      <div
-        className="d-flex flex-column align-items-center justify-content-center text-center text-white"
-        style={{
-          width: "100vw",
-          height: "100vh",
-          background: "linear-gradient(135deg, #0d6efd, #6610f2)",
-        }}
-      >
-        <h1 className="fw-bold display-2">Bienvenido a EduSmart AI</h1>
-        <p className="fs-4">
+      <div className="hero-section d-flex flex-column align-items-center justify-content-center text-center text-white">
+        <h1 className="fw-bold display-2 mb-3 animate-fade-in">
+          Bienvenido a <span className="text-gradient">EduSmart AI</span>
+        </h1>
+        <p className="fs-4 mb-4">
           Plataforma de cursos virtuales con inteligencia artificial
         </p>
-        <Button variant="light" size="lg" href="/courses">
+        <Button
+          as={Link}
+          to="/courses"
+          className="custom-btn btn-reset"
+        >
           🚀 Explorar Cursos
         </Button>
       </div>
@@ -26,35 +27,22 @@ function Home() {
       <Container className="py-5 text-center">
         <h2 className="fw-bold mb-4">¿Por qué elegir EduSmart AI?</h2>
         <Row>
-          <Col md={4}>
-            <i
-              className="bi bi-speedometer text-primary"
-              style={{ fontSize: "3rem" }}
-            ></i>
-            <h5>Aprendizaje Personalizado</h5>
-            <p>
-              IA que adapta los contenidos a tu ritmo y estilo de aprendizaje.
-            </p>
+          <Col md={4} className="mb-4">
+            <i className="bi bi-speedometer feature-icon text-primary"></i>
+            <h5 className="mt-3">Aprendizaje Personalizado</h5>
+            <p>IA que adapta los contenidos a tu ritmo y estilo de aprendizaje.</p>
           </Col>
-          <Col md={4}>
-            <i
-              className="bi bi-laptop text-success"
-              style={{ fontSize: "3rem" }}
-            ></i>
-            <h5>Ejercicios Inteligentes</h5>
+          <Col md={4} className="mb-4">
+            <i className="bi bi-laptop feature-icon text-success"></i>
+            <h5 className="mt-3">Ejercicios Inteligentes</h5>
             <p>
               Generación automática de prácticas y retroalimentación instantánea.
             </p>
           </Col>
-          <Col md={4}>
-            <i
-              className="bi bi-easel2 text-warning"
-              style={{ fontSize: "3rem" }}
-            ></i>
-            <h5>Explicaciones Visuales</h5>
-            <p>
-              Clases con gráficos, ejemplos y explicaciones paso a paso.
-            </p>
+          <Col md={4} className="mb-4">
+            <i className="bi bi-easel2 feature-icon text-warning"></i>
+            <h5 className="mt-3">Explicaciones Visuales</h5>
+            <p>Clases con gráficos, ejemplos y explicaciones paso a paso.</p>
           </Col>
         </Row>
       </Container>
@@ -63,56 +51,49 @@ function Home() {
       <Container className="py-5">
         <h2 className="fw-bold text-center mb-4">Cursos Populares</h2>
         <Row>
-          <Col md={4}>
-            <Card className="shadow-sm">
-              <Card.Img
-                variant="top"
-                src="https://source.unsplash.com/400x200/?ai,education"
-              />
-              <Card.Body>
-                <Card.Title>Introducción a la IA</Card.Title>
-                <Card.Text>
-                  Aprende los fundamentos de la inteligencia artificial.
-                </Card.Text>
-                <Button variant="primary">Inscribirme</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card className="shadow-sm">
-              <Card.Img
-                variant="top"
-                src="https://source.unsplash.com/400x200/?programming,coding"
-              />
-              <Card.Body>
-                <Card.Title>Programación en Python</Card.Title>
-                <Card.Text>
-                  Desde cero hasta avanzado con ejemplos prácticos.
-                </Card.Text>
-                <Button variant="primary">Inscribirme</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card className="shadow-sm">
-              <Card.Img
-                variant="top"
-                src="https://source.unsplash.com/400x200/?cloud,technology"
-              />
-              <Card.Body>
-                <Card.Title>Cloud Computing</Card.Title>
-                <Card.Text>
-                  Domina AWS, Azure y despliegue en la nube.
-                </Card.Text>
-                <Button variant="primary">Inscribirme</Button>
-              </Card.Body>
-            </Card>
-          </Col>
+          {[
+            {
+              title: "Introducción a la IA",
+              text: "Aprende los fundamentos de la inteligencia artificial.",
+              img: "https://source.unsplash.com/400x200/?ai,education",
+              link: "/courses/ia",
+            },
+            {
+              title: "Programación en Python",
+              text: "Desde cero hasta avanzado con ejemplos prácticos.",
+              img: "https://source.unsplash.com/400x200/?programming,coding",
+              link: "/courses/python",
+            },
+            {
+              title: "Cloud Computing",
+              text: "Domina AWS, Azure y despliegue en la nube.",
+              img: "https://source.unsplash.com/400x200/?cloud,technology",
+              link: "/courses/cloud",
+            },
+
+          ].map((course, idx) => (
+            <Col md={4} key={idx} className="mb-4">
+              <Card className="shadow-sm custom-card">
+                <Card.Img variant="top" src={course.img} />
+                <Card.Body className="d-flex flex-column align-items-center">
+                  <Card.Title>{course.title}</Card.Title>
+                  <Card.Text>{course.text}</Card.Text>
+                  <Button
+                    as={Link}
+                    to={course.link}
+                    className="custom-btn btn-reset "
+                  >
+                    Inscribirme
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
         </Row>
       </Container>
 
       {/* Cómo funciona */}
-      <Container fluid className="bg-light py-5">
+      <Container fluid className="how-it-works py-5">
         <Container>
           <h2 className="fw-bold text-center mb-4">Cómo Funciona</h2>
           <Row className="text-center">
@@ -144,4 +125,3 @@ function Home() {
 }
 
 export default Home;
-//SANTIAGO ES GAY

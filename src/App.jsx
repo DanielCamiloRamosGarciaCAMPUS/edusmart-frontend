@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import EduNavbar from "./components/Navbar";
 
+
 // Páginas
 import Home from "./pages/Home";
 import About from "./pages/About";
