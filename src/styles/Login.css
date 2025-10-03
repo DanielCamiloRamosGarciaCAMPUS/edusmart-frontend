@@ -1,0 +1,181 @@
+/* Fondo del login con gradiente animado */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d2d6c, #0d2d6c, #051a4c, #0d2d6c, #0d2d6c);
+  background-size: 400% 400%;
+  animation: ultraWave 30s ease infinite;
+  padding: 1rem;
+}
+
+/* Card del formulario */
+.login-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  color: white;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(250, 49, 122, 0.25);
+}
+
+/* Título degradado */
+.login-title {
+  background: linear-gradient(90deg, #ffe6ef, #ff6aa3, #fa317a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  animation: titleGlow 5s ease-in-out infinite;
+}
+
+/* Inputs con estilo */
+.form-control {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #fff !important;
+  border-radius: 12px !important;
+  padding: 0.9rem 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-control:focus {
+  border-color: #ff85b3 !important;
+  box-shadow: 0 0 8px rgba(250, 49, 122, 0.6) !important;
+  background: rgba(252, 0, 113, 0.15) !important;
+}
+
+/* Reset general de botones (quita Bootstrap) */
+button {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Botón de login */
+.login-btn {
+  background: linear-gradient(135deg, #df236b, #df236b);
+  color: #fff;
+  border-radius: 50px;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  animation: buttonGlow 6s ease-in-out infinite;
+}
+
+.login-btn:hover {
+  background: linear-gradient(90deg, #ff4f92, #ff85b3);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 12px rgba(250, 49, 122, 0.5), 
+              0 0 20px rgba(255, 106, 163, 0.4),
+              0 0 30px rgba(250, 49, 122, 0.35);
+}
+
+/* Botón de Google */
+.google-btn {
+  background: #fff;
+  color: #444;
+  border-radius: 50px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(250, 49, 122, 0.3);
+}
+
+.google-btn:hover {
+  background: #f5f5f5;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+.field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #ff4d4f; /* rojo alerta */
+  font-weight: 500;
+}
+
+.error-msg {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #ff4d4f; /* rojo por defecto */
+
+}
+
+.brand-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem; /* mucho más compacto */
+  background: linear-gradient(90deg, #ff6aa3, #fa317a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2; /* reduce la altura de línea */
+}
+
+.brand-sub {
+  margin: 0.2rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #7d9be2, #ff85b3, #fa317a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowSub 4s ease-in-out infinite;
+}
+
+
+
+
+
+/* Animación del gradiente */
+@keyframes ultraWave {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glow para botones */
+@keyframes buttonGlow {
+  0%, 100% { box-shadow: 0 0 6px rgba(250,49,122,0.4), 0 0 12px rgba(255,106,163,0.3); }
+  50% { box-shadow: 0 0 10px rgba(250,49,122,0.6), 0 0 18px rgba(255,106,163,0.4); }
+}
+
+/* Glow animado en el título */
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 6px rgba(255, 106, 163, 0.5); }
+  50% { text-shadow: 0 0 12px rgba(250, 49, 122, 0.6); }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 2rem;
+  }
+  .login-title {
+    font-size: 1.6rem;
+  }
+}

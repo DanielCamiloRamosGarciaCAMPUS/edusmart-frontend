@@ -1,0 +1,74 @@
+.register-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0d2d6c, #051a4c, #0d2d6c);
+  background-size: 400% 400%;
+  animation: ultraWave 30s ease infinite;
+  padding: 1rem;
+}
+
+.register-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+.register-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #ff6aa3, #fa317a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.form-control:focus {
+  border-color: #ff85b3;
+  box-shadow: 0 0 8px rgba(250, 49, 122, 0.6);
+  background: rgba(252, 0, 113, 0.15);
+}
+
+.register-btn {
+  background: linear-gradient(135deg, #df236b, #df236b);
+  color: #fff;
+  border-radius: 50px;
+  padding: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.register-btn:hover {
+  background: linear-gradient(90deg, #ff4f92, #ff85b3);
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(250, 49, 122, 0.5);
+}
+
+.error-msg {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+.register-link {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}

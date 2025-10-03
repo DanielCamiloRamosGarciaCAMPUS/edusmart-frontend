@@ -27,10 +27,11 @@ function EduNavbar() {
       </Navbar.Brand>
 
       {/* Toggle a la derecha */}
-      <Navbar.Toggle
-        aria-controls="basic-navbar-nav"
-        onClick={() => setExpanded(expanded ? false : "expanded")}
-      />
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={() => setExpanded(expanded ? false : "expanded")}
+
+          />
 
       {/* Menú colapsable */}
       <Navbar.Collapse id="basic-navbar-nav">
