@@ -1,64 +1,138 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
+import { apiFetch } from "../api";
 import "../styles/Courses.css";
 
-
-//Estos son daots simulados, necesitamos ponerle BACKEND :p
-//EL QUE LO LEA ES GAY
-const allCourses = [
-  {
-    id: 1,
-    title: "Introducción a la IA",
-    description: "Aprende los fundamentos de la inteligencia artificial.",
-    category: "Inteligencia Artificial",
-    image: "https://source.unsplash.com/400x200/?artificial,intelligence",
-  },
-  {
-    id: 2,
-    title: "Programación en Python",
-    description: "Desde cero hasta avanzado con ejemplos prácticos.",
-    category: "Programación",
-    image: "https://source.unsplash.com/400x200/?python,programming",
-  },
-  {
-    id: 3,
-    title: "Cloud Computing",
-    description: "Domina AWS, Azure y despliegue en la nube.",
-    category: "Computación en la Nube",
-    image: "https://source.unsplash.com/400x200/?cloud,technology",
-  },
-  {
-    id: 4,
-    title: "Desarrollo Web con React",
-    description: "Construye aplicaciones web modernas y escalables.",
-    category: "Programación",
-    image: "https://source.unsplash.com/400x200/?react,javascript",
-  },
-  {
-    id: 5,
-    title: "Machine Learning Avanzado",
-    description: "Modelos supervisados, no supervisados y deep learning.",
-    category: "Inteligencia Artificial",
-    image: "https://source.unsplash.com/400x200/?machine,learning",
-  },
-];
-
-function Courses() {
+export default function Courses() {
+  const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todos");
+  const [loading, setLoading] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
+  const [enrollCourseId, setEnrollCourseId] = useState(null); // Para inscripción automática
+
+  // Cargar cursos
+  useEffect(() => {
+    const loadCourses = async () => {
+      setLoading(true);
+      try {
+        const data = await apiFetch("/api/courses");
+        setCourses(data.courses);
+        setIsLogged(true);
+      } catch {
+        try {
+          const res = await fetch("http://localhost:5000/api/public-courses");
+          const data = await res.json();
+          setCourses(data.courses);
+        } catch (err) {
+          console.error("Error cargando cursos públicos:", err);
+        }
+        setIsLogged(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadCourses();
+  }, []);
+
+  // Detectar si venimos del login con ?enroll=ID
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const courseId = urlParams.get("enroll");
+    if (courseId) setEnrollCourseId(courseId);
+  }, []);
+
+  // Ejecutar inscripción automática después de login
+  useEffect(() => {
+    if (isLogged && enrollCourseId) {
+      handleAutoEnroll(enrollCourseId);
+      // Limpiar query param
+      const url = new URL(window.location);
+      url.searchParams.delete("enroll");
+      window.history.replaceState({}, "", url);
+    }
+  }, [isLogged, enrollCourseId]);
+
+  // Inscripción automática
+  const handleAutoEnroll = async (courseId) => {
+    try {
+      const check = await apiFetch(`/api/courses/${courseId}/check-enroll`);
+      if (check.enrolled) {
+        // Ya está inscrito: solo efecto visual
+        setCourses((prev) =>
+          prev.map((c) =>
+            c.id === parseInt(courseId)
+              ? { ...c, enrolled: 1, justEnrolled: true }
+              : c
+          )
+        );
+      } else {
+        await apiFetch(`/api/courses/${courseId}/enroll`, { method: "POST" });
+        setCourses((prev) =>
+          prev.map((c) =>
+            c.id === parseInt(courseId)
+              ? { ...c, enrolled: 1, justEnrolled: true }
+              : c
+          )
+        );
+      }
+      setTimeout(() => {
+        setCourses((prev) =>
+          prev.map((c) =>
+            c.id === parseInt(courseId) ? { ...c, justEnrolled: false } : c
+          )
+        );
+      }, 2000);
+    } catch (err) {
+      console.error("Error inscripción automática:", err);
+    }
+  };
+
+  // Inscripción manual
+  const handleEnroll = async (courseId) => {
+    if (!isLogged) {
+      // Redirigir a login con parámetro
+      window.location.href = `/login?enroll=${courseId}`;
+      return;
+    }
+
+    try {
+      const check = await apiFetch(`/api/courses/${courseId}/check-enroll`);
+      if (check.enrolled) {
+        alert("⚠️ Ya estás inscrito en este curso.");
+        return;
+      }
+      await apiFetch(`/api/courses/${courseId}/enroll`, { method: "POST" });
+      setCourses((prev) =>
+        prev.map((c) =>
+          c.id === courseId ? { ...c, enrolled: 1, justEnrolled: true } : c
+        )
+      );
+      setTimeout(() => {
+        setCourses((prev) =>
+          prev.map((c) =>
+            c.id === courseId ? { ...c, justEnrolled: false } : c
+          )
+        );
+      }, 2000);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   // Filtrar cursos
-  const filteredCourses = allCourses.filter((course) => {
-    const matchCategory = category === "Todos" || course.category === category;
-    const matchSearch = course.title.toLowerCase().includes(search.toLowerCase());
-    return matchCategory && matchSearch;
-  });
+  const filteredCourses = courses.filter(
+    (c) =>
+      (category === "Todos" || c.category === category) &&
+      c.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) return <div className="text-center mt-5">Cargando cursos...</div>;
 
   return (
     <Container className="py-5 courses-container">
       <h1 className="fw-bold text-center mb-4">Nuestros Cursos</h1>
 
-      {/* Filtros */}
       <Row className="mb-4">
         <Col md={6} className="mb-2">
           <Form.Control
@@ -71,14 +145,13 @@ function Courses() {
         <Col md={6} className="mb-2">
           <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option>Todos</option>
-            <option>Inteligencia Artificial</option>
-            <option>Programación</option>
-            <option>Computación en la Nube</option>
+            {Array.from(new Set(courses.map((c) => c.category))).map((cat) => (
+              <option key={cat}>{cat}</option>
+            ))}
           </Form.Select>
         </Col>
       </Row>
 
-      {/* Grid de cursos */}
       <Row>
         {filteredCourses.length > 0 ? (
           filteredCourses.map((course) => (
@@ -86,7 +159,7 @@ function Courses() {
               <Card className="shadow-sm h-100">
                 <Card.Img
                   variant="top"
-                  src={course.image}
+                  src={course.thumbnail}
                   alt={course.title}
                   style={{ height: "200px", objectFit: "cover" }}
                 />
@@ -95,8 +168,13 @@ function Courses() {
                   <Card.Text className="text-muted">{course.description}</Card.Text>
                   <div className="mt-auto">
                     <span className="badge bg-primary mb-2">{course.category}</span>
-                    <Button variant="success" className="w-100">
-                      Inscribirme
+                    <Button
+                      variant={course.justEnrolled ? "warning" : "success"}
+                      className={`w-100 ${course.justEnrolled ? "glow" : ""}`}
+                      onClick={() => handleEnroll(course.id)}
+                      disabled={course.enrolled}
+                    >
+                      {course.enrolled ? "✅ Inscrito" : "Inscribirme"}
                     </Button>
                   </div>
                 </Card.Body>
@@ -110,5 +188,3 @@ function Courses() {
     </Container>
   );
 }
-
-export default Courses;

@@ -39,18 +39,39 @@ export default function RegisterPage() {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
     setError(null);
 
-    // 🚀 Aquí va la petición al backend
-    setTimeout(() => {
-      setLoading(false);
-      alert("Registro exitoso!");
-    }, 1500);
+    try {
+      const res = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Error en el registro");
+      } else {
+        alert("✅ Registro exitoso!");
+        // Opcional: redirigir a login
+        window.location.href = "/login";
+      }
+    } catch (err) {
+      setError("Error en el servidor");
+    }
+
+    setLoading(false);
   };
 
   return (

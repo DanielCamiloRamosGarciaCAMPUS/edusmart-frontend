@@ -73,3 +73,34 @@
   transform: translateY(-3px) scale(1.05) !important;
   box-shadow: 0px 8px 25px rgba(250, 49, 122, 0.5) !important;
 }
+
+
+/* Cursos inscritos resaltados */
+.enrolled-card {
+  border: 2px solid #28b463;
+  background: #e9f8f2;
+}
+
+.enroll-btn.enrolled {
+  background: #6c757d !important;
+  cursor: default;
+  box-shadow: none;
+  color: #fff !important;
+}
+
+/* Glow animado temporal cuando el usuario se inscribe */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px #28b463;
+  }
+  50% {
+    box-shadow: 0 0 20px #28b463;
+  }
+  100% {
+    box-shadow: 0 0 5px #28b463;
+  }
+}
+
+.glow-card {
+  animation: glowPulse 2s ease-in-out;
+}
